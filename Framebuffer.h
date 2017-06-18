@@ -36,6 +36,8 @@ public:
     Framebuffer();
     void drawBitmap(const uint8_t *bitmap, uint8_t height, uint8_t width, uint8_t pos_x, uint8_t pos_y);
     void drawBuffer(const uint8_t *buffer);
+    void drawChar(char ch, uint8_t pos_x, uint8_t pos_y);
+    void drawString(char * s, uint8_t pos_x, uint8_t pos_y);
     void drawPixel(uint8_t pos_x, uint8_t pos_y, uint8_t pixel_status);
     void drawPixel(uint8_t pos_x, uint8_t pos_y);
     void drawVLine(uint8_t x, uint8_t y, uint8_t length);

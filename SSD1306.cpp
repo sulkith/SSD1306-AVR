@@ -39,16 +39,14 @@ SSD1306::SSD1306() {
 
     // Turn display off
     sendCommand(SSD1306_DISPLAYOFF);
-
     sendCommand(SSD1306_SETDISPLAYCLOCKDIV);
     sendCommand(0x80);
 
     sendCommand(SSD1306_SETMULTIPLEX);
-    sendCommand(0x3F);
+    sendCommand(SSD1306_HEIGHT - 1);
     
     sendCommand(SSD1306_SETDISPLAYOFFSET);
     sendCommand(0x00);
-    
     sendCommand(SSD1306_SETSTARTLINE | 0x00);
     
     // We use internal charge pump
@@ -58,17 +56,15 @@ SSD1306::SSD1306() {
     // Horizontal memory mode
     sendCommand(SSD1306_MEMORYMODE);
     sendCommand(0x00);
-    
     sendCommand(SSD1306_SEGREMAP | 0x1);
-
     sendCommand(SSD1306_COMSCANDEC);
 
     sendCommand(SSD1306_SETCOMPINS);
-    sendCommand(0x12);
+    sendCommand(0x02);
 
     // Max contrast
     sendCommand(SSD1306_SETCONTRAST);
-    sendCommand(0xCF);
+    sendCommand(0x8F);
 
     sendCommand(SSD1306_SETPRECHARGE);
     sendCommand(0xF1);
@@ -80,6 +76,8 @@ SSD1306::SSD1306() {
 
     // Non-inverted display
     sendCommand(SSD1306_NORMALDISPLAY);
+
+    sendCommand(SSD1306_DEACTIVATE_SCROLL);
 
     // Turn display back on
     sendCommand(SSD1306_DISPLAYON);
