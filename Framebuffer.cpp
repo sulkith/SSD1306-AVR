@@ -203,15 +203,34 @@ void Framebuffer::drawPixel(uint8_t pos_x, uint8_t pos_y) {
     this->buffer[pos_x+(pos_y/8)*SSD1306_WIDTH] |= (1 << (pos_y&7));
 }
 
+void Framebuffer::drawPixelInverse(uint8_t pos_x, uint8_t pos_y) {
+    if (pos_x >= SSD1306_WIDTH || pos_y >= SSD1306_HEIGHT) {
+        return;
+    }
+    this->buffer[pos_x+(pos_y/8)*SSD1306_WIDTH] ^= (1 << (pos_y&7));
+}
+
 void Framebuffer::drawVLine(uint8_t x, uint8_t y, uint8_t length) {
     for (uint8_t i = 0; i < length; ++i) {
         this->drawPixel(x,i+y);
     }
 }
 
+void Framebuffer::drawVLineInverse(uint8_t x, uint8_t y, uint8_t length) {
+    for (uint8_t i = 0; i < length; ++i) {
+        this->drawPixelInverse(x,i+y);
+    }
+}
+
 void Framebuffer::drawHLine(uint8_t x, uint8_t y, uint8_t length) {
     for (uint8_t i = 0; i < length; ++i) {
         this->drawPixel(i+x,y);
+    }
+}
+
+void Framebuffer::drawHLineInverse(uint8_t x, uint8_t y, uint8_t length) {
+    for (uint8_t i = 0; i < length; ++i) {
+        this->drawPixelInverse(i+x,y);
     }
 }
 
