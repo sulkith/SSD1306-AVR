@@ -29,7 +29,7 @@ For more information, please refer to <http://unlicense.org/>
 #define _I2C_H_
 
 #include <stdint.h>
-#include <util/twi.h>
+#include <compat/twi.h>
 
 #define SCL_CLOCK  100000L
 
