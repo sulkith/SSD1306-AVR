@@ -31,7 +31,7 @@ For more information, please refer to <http://unlicense.org/>
 #ifdef SIMULATOR
 #include "simulator/I2C.h"
 #else
-#include "I2C.h"
+#include "i2c/I2C.h"
 #endif
 
 SSD1306::SSD1306() {

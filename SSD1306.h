@@ -28,7 +28,7 @@ For more information, please refer to <http://unlicense.org/>
 #ifdef SIMULATOR
 #include "simulator/I2C.h"
 #else
-#include "I2C.h"
+#include "i2c/I2C.h"
 #endif
 
 #define SSD1306_DEFAULT_ADDRESS 0x78

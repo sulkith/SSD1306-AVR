@@ -13,7 +13,7 @@ CXXFLAGS_AVR = -Os -Wall -mmcu=$(MCU) -DF_CPU=$(F_CPU) -I./include -I/usr/lib/av
 CXXFLAGS = $(CXXFLAGS_$(ARCH))
 
 OBJS_SIMULATOR = ../../simulator/I2C.o ../../SSD1306.o ../../Framebuffer.o example1.o
-OBJS_AVR = ../../I2C.o ../../SSD1306.o ../../Framebuffer.o example1.o
+OBJS_AVR = ../../i2c/I2C.o ../../SSD1306.o ../../Framebuffer.o example1.o
 OBJS = $(OBJS_$(ARCH))
 
 TARGET_SIMULATOR = example1
