@@ -49,7 +49,7 @@ void Framebuffer::drawBitmap(const uint8_t *progmem_bitmap, uint8_t height, uint
 }
 
 
-const char PROGMEM font6x8[] = {
+const uint8_t PROGMEM font6x8[] = {
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00,// sp
   0x00, 0x00, 0x00, 0x2f, 0x00, 0x00,// !
   0x00, 0x00, 0x07, 0x00, 0x07, 0x00,// "
@@ -145,7 +145,7 @@ const char PROGMEM font6x8[] = {
 };
 
 void Framebuffer::drawChar(char ch, uint8_t pos_x, uint8_t pos_y) {
-    uint8_t current_byte, current_x, current_y; 
+    uint8_t current_byte, current_x, current_y;
     uint8_t c = ch - 32;
     for (current_x = 0; current_x < 6; current_x++) {
         current_byte = pgm_read_byte(&font6x8[c * 6 + current_x]);
@@ -159,7 +159,7 @@ void Framebuffer::drawChar(char ch, uint8_t pos_x, uint8_t pos_y) {
     }
 }
 
-void Framebuffer::drawString(char * s, uint8_t pos_x, uint8_t pos_y) {
+void Framebuffer::drawString(const char* s, uint8_t pos_x, uint8_t pos_y) {
     uint8_t current_x = pos_x;
     while(*s) {
         this->drawChar(*s++, current_x, pos_y);

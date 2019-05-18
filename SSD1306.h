@@ -25,6 +25,9 @@ OTHER DEALINGS IN THE SOFTWARE.
 For more information, please refer to <http://unlicense.org/>
 */
 
+#ifndef __SSD1306_H__
+#define __SSD1306_H__
+
 #ifdef SIMULATOR
 #include "simulator/I2C.h"
 #else
@@ -65,7 +68,7 @@ For more information, please refer to <http://unlicense.org/>
 #define SSD1306_DEACTIVATE_SCROLL 0x2E
 
 class SSD1306{
-private: 
+private:
     I2C i2c;
 
 public:
@@ -76,3 +79,5 @@ private:
     void sendCommand(uint8_t command);
     void sendData(uint8_t data);
 };
+
+#endif // __SSD1306_H__
