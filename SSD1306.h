@@ -28,12 +28,6 @@ For more information, please refer to <http://unlicense.org/>
 #ifndef __SSD1306_H__
 #define __SSD1306_H__
 
-#ifdef SIMULATOR
-#include "simulator/I2C.h"
-#else
-#include "i2c/I2C.h"
-#endif
-
 #define SSD1306_DEFAULT_ADDRESS 0x78
 #define SSD1306_SETCONTRAST 0x81
 #define SSD1306_DISPLAYALLON_RESUME 0xA4
@@ -69,7 +63,6 @@ For more information, please refer to <http://unlicense.org/>
 
 class SSD1306{
 private:
-    //I2C i2c;
 
 public:
     SSD1306();

@@ -1,3 +1,6 @@
 [submodule "i2c"]
 	path = i2c
 	url = git@github.com:sulkith/lib_i2c_avr.git
+[submodule "avr-twi"]
+	path = avr-twi
+	url = git@github.com:scttnlsn/avr-twi.git

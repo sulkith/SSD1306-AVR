@@ -29,12 +29,7 @@ For more information, please refer to <http://unlicense.org/>
 #include <stdint.h>
 #include "SSD1306.h"
 
-#ifdef SIMULATOR
-#include "simulator/I2C.h"
-#else
-//#include "i2c/I2C.h"
-#endif
-#include "../avr-twi/twi.h"
+#include "avr-twi/twi.h"
 #include <string.h>
 
 SSD1306::SSD1306() {
