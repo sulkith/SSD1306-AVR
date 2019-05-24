@@ -115,7 +115,7 @@ void SSD1306::sendFramebuffer(uint8_t *buffer) {
     // We have to send the buffer as 16 bytes packets
     // Our buffer is 1024 bytes long, 1024/16 = 64
     // We have to send 64 packets
-    uint8_t sendDatas[40] = {0};
+    uint8_t sendDatas[17] = {0};
     for (uint8_t packet = 0; packet < 64; packet++) {
         //i2c.start();
         //i2c.write(0x40);
