@@ -32,11 +32,14 @@ For more information, please refer to <http://unlicense.org/>
 #ifdef SIMULATOR
 #include "simulator/I2C.h"
 #else
-#include "i2c/I2C.h"
+//#include "i2c/I2C.h"
 #endif
+#include "../avr-twi/twi.h"
+#include <string.h>
 
 SSD1306::SSD1306() {
-    i2c.init(SSD1306_DEFAULT_ADDRESS);
+    //i2c.init(SSD1306_DEFAULT_ADDRESS);
+    twi_init();
 
     // Turn display off
     sendCommand(SSD1306_DISPLAYOFF);
@@ -45,15 +48,15 @@ SSD1306::SSD1306() {
 
     sendCommand(SSD1306_SETMULTIPLEX);
     sendCommand(SSD1306_HEIGHT - 1);
-    
+
     sendCommand(SSD1306_SETDISPLAYOFFSET);
     sendCommand(0x00);
     sendCommand(SSD1306_SETSTARTLINE | 0x00);
-    
+
     // We use internal charge pump
     sendCommand(SSD1306_CHARGEPUMP);
     sendCommand(0x14);
-    
+
     // Horizontal memory mode
     sendCommand(SSD1306_MEMORYMODE);
     sendCommand(0x00);
@@ -85,10 +88,16 @@ SSD1306::SSD1306() {
 }
 
 void SSD1306::sendCommand(uint8_t command) {
-    i2c.start();
-    i2c.write(0x00);
-    i2c.write(command);
-    i2c.stop();
+  uint8_t data[3];
+  data[0] = 0x00;
+  data[1] = command;
+  data[2] = 0xAA;
+  twi_write(SSD1306_DEFAULT_ADDRESS/2, data, 2, NULL);
+  twi_wait();
+    //i2c.start();
+    //i2c.write(0x00);
+    //i2c.write(command);
+    //i2c.stop();
 }
 
 void SSD1306::invert(uint8_t inverted) {
@@ -111,12 +120,18 @@ void SSD1306::sendFramebuffer(uint8_t *buffer) {
     // We have to send the buffer as 16 bytes packets
     // Our buffer is 1024 bytes long, 1024/16 = 64
     // We have to send 64 packets
+    uint8_t sendDatas[40] = {0};
     for (uint8_t packet = 0; packet < 64; packet++) {
-        i2c.start();
-        i2c.write(0x40);
+        //i2c.start();
+        //i2c.write(0x40);
+        sendDatas[0] = 0x40;
+
         for (uint8_t packet_byte = 0; packet_byte < 16; ++packet_byte) {
-            i2c.write(buffer[packet*16+packet_byte]);
+            //i2c.write(buffer[packet*16+packet_byte]);
+            sendDatas[packet_byte+1] = buffer[packet*16+packet_byte];
         }
-        i2c.stop();
+        //i2c.stop();
+        twi_write(SSD1306_DEFAULT_ADDRESS/2, sendDatas, 17, NULL);
+        twi_wait();
     }
 }

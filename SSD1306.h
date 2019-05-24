@@ -69,7 +69,7 @@ For more information, please refer to <http://unlicense.org/>
 
 class SSD1306{
 private:
-    I2C i2c;
+    //I2C i2c;
 
 public:
     SSD1306();
