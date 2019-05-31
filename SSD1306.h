@@ -65,7 +65,7 @@ class SSD1306{
 private:
 
 public:
-    SSD1306();
+    void init();
     void sendFramebuffer(uint8_t *buffer);
     void invert(uint8_t inverted);
 private:

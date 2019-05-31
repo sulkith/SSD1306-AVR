@@ -33,7 +33,6 @@ For more information, please refer to <http://unlicense.org/>
 
 class Framebuffer {
 public:
-    Framebuffer();
     void drawBitmap(const uint8_t *bitmap, uint8_t height, uint8_t width, uint8_t pos_x, uint8_t pos_y);
     void drawBuffer(const uint8_t *buffer);
     void drawChar(char ch, uint8_t pos_x, uint8_t pos_y);
@@ -48,9 +47,10 @@ public:
     void drawRectangle(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2);
     void drawRectangle(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8_t fill);
     void invert(uint8_t status);
+    void init();
     void clear();
     void show();
 private:
-    uint8_t buffer[1024];
+    uint8_t buffer[SSD1306_BUFFERSIZE];//Buffersize should be sufficient
     SSD1306 oled;
 };

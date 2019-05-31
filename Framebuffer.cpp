@@ -27,8 +27,10 @@ For more information, please refer to <http://unlicense.org/>
 
 #include "Framebuffer.h"
 
-Framebuffer::Framebuffer() {
+void Framebuffer::init()
+{
     this->clear();
+    oled.init();
 }
 
 #ifndef SIMULATOR

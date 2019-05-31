@@ -32,7 +32,8 @@ For more information, please refer to <http://unlicense.org/>
 #include "avr-twi/twi.h"
 #include <string.h>
 
-SSD1306::SSD1306() {
+void SSD1306::init(){
+
     //i2c.init(SSD1306_DEFAULT_ADDRESS);
     twi_init();
 
