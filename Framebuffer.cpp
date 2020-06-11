@@ -33,14 +33,18 @@ void Framebuffer::init()
     oled.init();
 }
 
-#ifndef SIMULATOR
+#ifndef SIMULATION_
 void Framebuffer::drawBitmap(const uint8_t *progmem_bitmap, uint8_t height, uint8_t width, uint8_t pos_x, uint8_t pos_y) {
     uint8_t current_byte;
     uint8_t byte_width = (width + 7)/8;
 
     for (uint8_t current_y = 0; current_y < height; current_y++) {
         for (uint8_t current_x = 0; current_x < width; current_x++) {
+#ifdef __AVR__
             current_byte = pgm_read_byte(progmem_bitmap + current_y*byte_width + current_x/8);
+#else
+            current_byte = *(progmem_bitmap + current_y*byte_width + current_x/8);
+#endif
             if (current_byte & (128 >> (current_x&7))) {
                 this->drawPixel(current_x+pos_x,current_y+pos_y,1);
             } else {
@@ -50,6 +54,9 @@ void Framebuffer::drawBitmap(const uint8_t *progmem_bitmap, uint8_t height, uint
     }
 }
 
+#ifndef __AVR__
+	#define PROGMEM
+#endif
 
 const uint8_t PROGMEM font6x8[] = {
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00,// sp
@@ -150,7 +157,11 @@ void Framebuffer::drawChar(char ch, uint8_t pos_x, uint8_t pos_y) {
     uint8_t current_byte, current_x, current_y;
     uint8_t c = ch - 32;
     for (current_x = 0; current_x < 6; current_x++) {
+#ifdef __AVR__
         current_byte = pgm_read_byte(&font6x8[c * 6 + current_x]);
+#else
+        current_byte = font6x8[c * 6 + current_x];
+#endif
         for (current_y = 0; current_y < 8; current_y++) {
             if (current_byte & (1 << current_y)) {
                 this->drawPixel(current_x + pos_x, current_y + pos_y, 1);
@@ -174,7 +185,11 @@ void Framebuffer::drawBuffer(const uint8_t *progmem_buffer) {
 
     for (uint8_t y_pos = 0; y_pos < 64; y_pos++) {
         for (uint8_t x_pos = 0; x_pos < 128; x_pos++) {
+#ifdef __AVR__
             current_byte = pgm_read_byte(progmem_buffer + y_pos*16 + x_pos/8);
+#else
+            current_byte = *(progmem_buffer+ y_pos*16 + x_pos/8);
+#endif
             if (current_byte & (128 >> (x_pos&7))) {
                 this->drawPixel(x_pos,y_pos,1);
             } else {

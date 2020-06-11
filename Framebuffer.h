@@ -26,7 +26,14 @@ For more information, please refer to <http://unlicense.org/>
 */
 
 #include <stdint.h>
-#ifndef SIMULATOR
+
+#ifndef __arm__
+	#ifndef SIMULATOR
+		#define __AVR__
+	#endif
+#endif
+
+#ifdef __AVR__
 #include <avr/pgmspace.h>
 #endif
 #include "SSD1306.h"
