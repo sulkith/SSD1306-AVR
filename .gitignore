@@ -1,5 +1,6 @@
 .DS_Store
 *.o
+*.d
 *.lst
 examples/example1/example1
 examples/example1/example1.hex
